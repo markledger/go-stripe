@@ -34,6 +34,7 @@ type application struct {
 	version       string
 }
 
+// add the serve() method to the application struct
 func (app *application) serve() error {
 	srv := http.Server{
 		Addr:              fmt.Sprintf(":%d", app.config.port),
@@ -44,7 +45,7 @@ func (app *application) serve() error {
 		WriteTimeout:      5 * time.Second,
 	}
 
-	app.infoLog.Printf("Starting server in %s mode on port %d", app.config.env, app.config.port)
+	app.infoLog.Println(fmt.Sprintf("Starting server in %s mode on port %d", app.config.env, app.config.port))
 
 	return srv.ListenAndServe()
 }

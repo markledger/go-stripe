@@ -6,7 +6,7 @@ import (
 )
 
 func (app *application) routes() http.Handler {
-	r := chi.NewRouter()
+	mux := chi.NewRouter()
 
 	//// A good base middleware stack
 	//r.Use(middleware.RequestID)
@@ -19,9 +19,7 @@ func (app *application) routes() http.Handler {
 	//// processing should be stopped.
 	//r.Use(middleware.Timeout(60 * time.Second))
 	//
-	//r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-	//	w.Write([]byte("hi"))
-	//})
+	mux.Get("/virtual-terminal", app.VirtualTerminal)
 
 	// RESTy routes for "articles" resource
 	//r.Route("/articles", func(r chi.Router) {
@@ -47,5 +45,5 @@ func (app *application) routes() http.Handler {
 	//r.Mount("/admin", adminRouter())
 
 	//return http.ListenAndServe(":3333", r)
-	return r
+	return mux
 }
