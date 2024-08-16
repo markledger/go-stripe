@@ -6,7 +6,7 @@
 
 Further information about are can be found here: https://github.com/air-verse/air?tab=readme-ov-file
 
-`curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin`
+> curl -sSfL https://raw.githubusercontent.com/air-verse/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin`
 
 ### Run air
 
