@@ -57,17 +57,18 @@
 
     <script>
       let card
-      let stripe
       const cardMessages = document.getElementById("card-messages")
       const payButton = document.getElementById("pay-button")
       const processing = document.getElementById("processing-payment")
       const form = document.getElementById("charge_form")
-      stripe = Stripe('pk_test_51PncmD06QiRySP55jLyWHocVXz7NamHaKHgNywhjAf8W23LbUlvObo3iHT1eAG12iE4QM9hI40okojG9XPhAURDE00uYtPw6qz')
+      let stripe = Stripe('pk_test_51PncmD06QiRySP55jLyWHocVXz7NamHaKHgNywhjAf8W23LbUlvObo3iHT1eAG12iE4QM9hI40okojG9XPhAURDE00uYtPw6qz')
 
-      console.log(form)
-      form.addEventListener('submit', val)
+      const hidePaymentButton = () => {
+        payButton.classList.add("d-none")
+        processing.classList.remove("d-none")
+      }
 
-      function val(event) {
+      const val = (event) => {
         event.preventDefault()
         event.stopPropagation()
         const form = event.target
@@ -77,7 +78,9 @@
           return
         }
         form.classList.add("was-validated")
+        hidePaymentButton()
       }
+
 
       (function () {
         const elements = stripe.elements();
@@ -103,6 +106,9 @@
           displayError.classList.add('d-none')
           displayError.textContent = ""
         })
+
+        console.log(form)
+        form.addEventListener('submit', val)
       })()
     </script>
 {{end}}
