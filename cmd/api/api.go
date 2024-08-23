@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"time"
+)
 
 const version = "1.0.0"
 const cssVersion = "1"
@@ -25,28 +25,11 @@ type config struct {
 }
 
 type application struct {
-	config        config
-	infoLog       *log.Logger
-	errorLog      *log.Logger
-	version       string
+	config   config
+	infoLog  *log.Logger
+	errorLog *log.Logger
+	version  string
 }
-
-// add the serve() method to the application struct
-func (app *application) serve() error {
-	srv := http.Server{
-		Addr:              fmt.Sprintf(":%d", app.config.port),
-		Handler:           app.routes(),
-		IdleTimeout:       30 * time.Second,
-		ReadTimeout:       10 * time.Second,
-		ReadHeaderTimeout: 5 * time.Second,
-		WriteTimeout:      5 * time.Second,
-	}
-
-	app.infoLog.Println(fmt.Sprintf("Starting server in %s mode on port %d", app.config.env, app.config.port))
-
-	return srv.ListenAndServe()
-}
-
 
 // add the serve() method to the application struct
 func (app *application) serve() error {
@@ -66,7 +49,7 @@ func (app *application) serve() error {
 
 func main() {
 	var cfg config
-	flag.IntVar(&cfg.port, "port", 8080, "Port to listen on")
+	flag.IntVar(&cfg.port, "port", 8090, "Port to listen on")
 	flag.StringVar(&cfg.env, "env", "development", "Application Environment {development|maintainance|production}")
 
 	flag.Parse()

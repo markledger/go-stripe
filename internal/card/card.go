@@ -22,11 +22,11 @@ type Transaction struct {
 func (c *Card) Charge(currency string, amount int) (*stripe.PaymentIntent, string, error) {
 	return c.CreatePaymentIntent(currency, amount)
 }
-func (cx *Card) CreatePaymentIntent(currency string, amount int) (*stripe.PaymentIntent, string, error) {
+func (c *Card) CreatePaymentIntent(currency string, amount int) (*stripe.PaymentIntent, string, error) {
 	stripe.Key = c.Secret
 	params := &stripe.PaymentIntentParams{
 		Amount:   stripe.Int64(int64(amount)),
-		Currency: stripe.String(cx.Currency),
+		Currency: stripe.String(c.Currency),
 	}
 
 	pi, err := paymentintent.New(params)
@@ -37,7 +37,7 @@ func (cx *Card) CreatePaymentIntent(currency string, amount int) (*stripe.Paymen
 		}
 		return nil, msg, err
 	}
-
+	return pi, "", err
 }
 
 func cardErrorMessage(code stripe.ErrorCode) string {
